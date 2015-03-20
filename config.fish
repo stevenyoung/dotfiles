@@ -7,8 +7,6 @@ set -xg DYLD_LIBRARY_PATH /Users/steven/Desktop/workspace/rails/chorus/postgres/
 set -xg PATH $CHORUS_HOME/bin $CHORUS_HOME/postgres/bin $PATH
 set -xg JRUBY_OPTS "-X+O --client -J-Xmx2048m -J-Xms512m -J-Xmn128m -J-XX:MaxPermSize=128m -Xcext.enabled=true -J-Djava.library.path=$CHORUS_HOME/vendor/hadoop/lib/"
 
-set -xg ECHO_NEST_API_KEY 'B1LAYFZOOANVAVTXD'
-set -xg HADOOP_HOME /usr/local/Cellar/hadoop/2.5.0
 
 set -xg RBENV_ROOT /usr/local/var/rbenv
 . (rbenv init -|psub)
