@@ -1,11 +1,3 @@
-set -xg PATH /usr/local/sbin /usr/local/bin /usr/local/opt/go/libexec/bin ~/bin $PATH
-set -xg PATH ~/google-cloud-sdk/bin $PATH
-set -xg PATH /usr/local/opt/python/libexec/bin $PATH
-set -xg PATH ~/go/bin $PATH
-
-set -xg PATH /usr/local/heroku/bin $PATH
-set -xg PATH ~/.npm-packages/bin $PATH
-
 set fish_git_dirty_color red
 
 function parse_git_dirty
@@ -118,7 +110,7 @@ function fish_prompt
     end
 
     # abbreviated home directory ~
-    if command -s sed > /dev/null ^&1
+    if command -s sed > /dev/null
         set current_dir (echo $PWD | sed -e "s,.*$HOME,~," ^/dev/null)
     else
         set current_dir $PWD
@@ -126,8 +118,8 @@ function fish_prompt
 
     # the git stuff
     # TODO: use git's built in prompt support
-    if command -s git > /dev/null ^&1
-        if git rev-parse --git-dir > /dev/null ^&1
+    if command -s git > /dev/null 2> /dev/null
+        if git rev-parse --git-dir > /dev/null 2> /dev/null
             set -l git_branch (git rev-parse --abbrev-ref HEAD ^/dev/null)
             set -l git_status (count (git status -s --ignore-submodules ^/dev/null))
             if test $git_status -gt 0
@@ -143,11 +135,9 @@ function fish_prompt
         case 'root'
             set prompt '#'
         case '*'
-            set prompt '>>'
+            set prompt '>'
     end
 
     # finally print the prompt
-    # lolfish $USER '@' (hostname -s) ':' $current_dir $git_dir $error $prompt ' '
-    lolfish (usernamehost) ':' (prompt_pwd) $git_dir $error ' '
-    # printf '%s%s %s%s%s$ '  (usernamehost) (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) (parse_git_branch)
+    lolfish (usernamehost) (prompt_pwd) $git_dir $error $prompt ' '
 end
